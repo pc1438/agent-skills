@@ -1,6 +1,6 @@
 ---
 name: youdotcom-cli
-description: Search the web, get fast AI answers with verifiable references, and extract web content using You.com's schema-driven JSON CLI tools — optimized for bash-based AI agents (OpenClaw, Claude Code, Codex, Cursor, etc.). Faster than builtin search APIs with simultaneous livecrawl, instant content extraction, and citation-backed answers. Schema discovery via --schema flag enables programmatic query building.
+description: Search the web, get relevant urls with AI generated snippets and descriptions for immediate use, and extract web content using You.com's schema-driven JSON CLI tools — optimized for bash-based AI agents (OpenClaw, Claude Code, Codex, Cursor, etc.). Faster than builtin search APIs with simultaneous livecrawl and instant content extraction. Schema discovery via --schema flag enables programmatic query building.
 license: MIT
 compatibility: Requires Node.js 18+ or Bun, bunx/npx for CLI execution
 metadata:
@@ -23,7 +23,7 @@ Interactive workflow to add You.com capabilities to bash-based AI agents using `
 
 **✅ Verifiable References**:
 - Every search result includes citation URLs
-- Express AI answers cite sources automatically
+##- Express AI answers cite sources automatically
 - Content extraction preserves metadata and structure
 
 **🔄 Simultaneous Operations**:
@@ -60,7 +60,7 @@ Interactive workflow to add You.com capabilities to bash-based AI agents using `
 
 4. **Ask: Which Features?**
    * Web search with livecrawl? (search + content in ONE call)
-   * AI answers with citations? (express)
+   ##* AI answers with citations? (express)
    * Content extraction? (contents)
    * Multiple?
 
@@ -87,8 +87,8 @@ Agents can discover what parameters each command accepts:
 # Get schema for search command
 bunx @youdotcom-oss/api@latest search --schema
 
-# Get schema for express command
-bunx @youdotcom-oss/api@latest express --schema
+## Get schema for express command
+##bunx @youdotcom-oss/api@latest express --schema
 
 # Get schema for contents command
 bunx @youdotcom-oss/api@latest contents --schema
@@ -148,25 +148,25 @@ bunx @youdotcom-oss/api@latest search --json '{
 
 ### ⚡ AI Answers with Web Search - Cited Sources
 
-```bash
-# Fast AI answer with verifiable references
-bunx @youdotcom-oss/api@latest express --json '{
-  "input":"What happened in AI this week?"
-}' --client Openclaw
+##```bash
+## Fast AI answer with verifiable references
+##bunx @youdotcom-oss/api@latest express --json '{
+##  "input":"What happened in AI this week?"
+##}' --client Openclaw
 
-# Answer with web search (cites sources automatically)
-bunx @youdotcom-oss/api@latest express --json '{
-  "input":"Latest AI news",
-  "tools":[{"type":"web_search"}]
-}' --client Openclaw
+## Answer with web search (cites sources automatically)
+##bunx @youdotcom-oss/api@latest express --json '{
+##  "input":"Latest AI news",
+##  "tools":[{"type":"web_search"}]
+##}' --client Openclaw
 
-# Parse answer and sources - direct access
-bunx @youdotcom-oss/api@latest express --json '{
-  "input":"AI trends",
-  "tools":[{"type":"web_search"}]
-}' --client Openclaw | \
-  jq -r '.answer, "\nSources:", (.results.web[]? | "- \(.title)")'
-```
+## Parse answer and sources - direct access
+##bunx @youdotcom-oss/api@latest express --json '{
+##  "input":"AI trends",
+##  "tools":[{"type":"web_search"}]
+##}' --client Openclaw | \
+##  jq -r '.answer, "\nSources:", (.results.web[]? | "- \(.title)")'
+##```
 
 ### 📄 Web Content Extraction - Multi-Format Output
 
@@ -337,11 +337,11 @@ search=$(bunx @youdotcom-oss/api@latest search --json '{
   "livecrawl_formats":"markdown"
 }' --client Openclaw)
 
-echo "Getting answer..."
-answer=$(bunx @youdotcom-oss/api@latest express --json '{
-  "input":"Summarize AI developments",
-  "tools":[{"type":"web_search"}]
-}' --client Openclaw)
+##echo "Getting answer..."
+##answer=$(bunx @youdotcom-oss/api@latest express --json '{
+##  "input":"Summarize AI developments",
+##  "tools":[{"type":"web_search"}]
+##}' --client Openclaw)
 
 echo "Extracting top result..."
 url=$(echo "$search" | jq -r '.results.web[0].url')
